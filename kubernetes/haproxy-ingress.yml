@@ -1,0 +1,12 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: haproxy-ingress
+  namespace: kube-system
+spec:
+  chart: kubernetes-ingress
+  repo: https://haproxytech.github.io/helm-charts
+  targetNamespace: kube-system
+  set:
+    controller.kind: DaemonSet
+    controller.service.type: LoadBalancer
