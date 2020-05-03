@@ -1,0 +1,86 @@
+heat_template_version: 2018-08-31
+
+description: >
+  Our Kubernetes cluster
+
+parameters:
+  key_name:
+    type: string
+    description: Name of keypair to assign to servers
+  image_id:
+    type: string
+    description: ID of image to use for servers
+  flavor:
+    type: string
+    description: Flavor to use for servers
+  private_net_id:
+    type: string
+    description: ID of private network into which servers get deployed
+
+resources:
+  kubernetes_security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      description: Kubernetes security group
+      name: k8s
+      rules:
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: tcp
+          port_range_min: 6443
+          port_range_max: 6443
+        - remote_mode: remote_group_id
+          protocol: tcp
+          port_range_min: 10250
+          port_range_max: 10250
+        - remote_mode: remote_group_id
+          protocol: udp
+          port_range_min: 8472
+          port_range_max: 8472
+
+  web_security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      description: "HTTP/HTTPS security group"
+      name: web
+      rules:
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: tcp
+          port_range_min: 80
+          port_range_max: 80
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: tcp
+          port_range_min: 443
+          port_range_max: 443
+
+  ssh_security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      description: SSH security group
+      name: web
+      rules:
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: tcp
+          port_range_min: 22
+          port_range_max: 22
+
+  cluster:
+    type: OS::Heat::AutoScalingGroup
+    properties:
+      min_size: 4
+      max_size: 4
+      resource:
+        type: node.yaml
+        properties:
+          security_groups:
+            - { get_resource: ssh_security_group }
+            - { get_resource: kubernetes_security_group }
+            - { get_resource: web_security_group }
+          key_name: { get_param: key_name }
+          image_id: { get_param: image_id }
+          flavor: { get_param: flavor }
+          private_net_id: { get_param: private_net_id }
+          
+outputs:
+  nodes_private_ips:
+    description: Private IP for datanode
+    value: { get_attr: [cluster, outputs, private_ip] }

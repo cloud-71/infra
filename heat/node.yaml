@@ -1,0 +1,42 @@
+heat_template_version: 2018-08-31
+
+description: >
+  A node in our Kubernetes cluster
+
+parameters:
+  key_name:
+    type: string
+    description: Name of keypair to assign to servers
+  image_id:
+    type: string
+    description: ID of image to use for servers
+  flavor:
+    type: string
+    description: Flavor to use for servers
+  private_net_id:
+    type: string
+    description: ID of private network into which servers get deployed
+  security_groups:
+    type: json
+    description: IDs of security-groups
+
+resources:
+  worker_node:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image_id }
+      flavor: { get_param: flavor }
+      key_name: { get_param: key_name }
+      networks:
+        - port: { get_resource: port }
+
+  port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_param: private_net_id }
+      security_groups: { get_param: security_groups }
+
+outputs:
+  private_ip:
+    description: Internal IP address of the node
+    value: [{ get_attr: [ worker_node, first_address ] }, { get_attr: [ worker_node, name ] }]
