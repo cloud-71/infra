@@ -1,0 +1,18 @@
+apiVersion: settings.k8s.io/v1alpha1
+kind: PodPreset
+metadata:
+  name: http-proxy-settings
+spec:
+  selector:
+    matchLabels: {}
+  env:
+    - name: HTTP_PROXY
+      value: "http://wwwproxy.unimelb.edu.au:8000/"
+    - name: HTTPS_PROXY
+      value: "http://wwwproxy.unimelb.edu.au:8000/"
+    - name: http_proxy
+      value: "http://wwwproxy.unimelb.edu.au:8000/"
+    - name: https_proxy
+      value: "http://wwwproxy.unimelb.edu.au:8000/"
+    - name: no_proxy
+      value: "localhost,127.0.0.1,localaddress,172.16.0.0/12,10.42.0.0/16,.melbourne.rc.nectar.org.au,.storage.unimelb.edu.au,.cloud.unimelb.edu.au"
