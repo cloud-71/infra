@@ -1,9 +1,4 @@
 ---
-- name: Set SELinux to disabled state
-  selinux:
-    state: disabled
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
-
 - name: Enable IPv4 forwarding
   sysctl:
     name: net.ipv4.ip_forward
@@ -18,18 +13,19 @@
     state: present
     reload: yes
 
-- name: Set bridge-nf-call-iptables (just to be sure)
-  sysctl:
-    name: net.bridge.bridge-nf-call-iptables
-    value: "1"
-    state: present
-    reload: yes
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+- name: Legacy iptables
+  alternatives:
+    name: iptables
+    path: /usr/sbin/iptables-legacy
 
-- name: Set bridge-nf-call-ip6tables (just to be sure)
-  sysctl:
-    name: net.bridge.bridge-nf-call-iptables
-    value: "1"
-    state: present
-    reload: yes
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+- name: Configure proxy
+  lineinfile:
+    dest: '/etc/environment'
+    regexp: '^{{ item.key }}\ ?='
+    line: "{{ item.key }}='{{ item.value }}'"
+  with_dict:
+    HTTP_PROXY: "http://wwwproxy.unimelb.edu.au:8000/"
+    HTTPS_PROXY: "http://wwwproxy.unimelb.edu.au:8000/"
+    http_proxy: "http://wwwproxy.unimelb.edu.au:8000/"
+    https_proxy: "http://wwwproxy.unimelb.edu.au:8000/"
+    no_proxy: "localhost,127.0.0.1,localaddress,172.16.0.0/12,.melbourne.rc.nectar.org.au,.storage.unimelb.edu.au,.cloud.unimelb.edu.au"
