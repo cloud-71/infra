@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitter-harvester-deployment
+  labels:
+    app: twitter-harvester
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: twitter-harvester
+  template:
+    metadata:
+      labels:
+        app: twitter-harvester
+    spec:
+      imagePullSecrets:
+      - name: "docker.pkg.github.com"
+      containers:
+      - name: twitter-harvester
+        image: "docker pull docker.pkg.github.com/cloud-71/twitter-harvester/twitter-harvester:3"
+        ports:
+        - containerPort: 3000
