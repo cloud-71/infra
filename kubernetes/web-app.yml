@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app-deployment
+  name: web-app
   labels:
     app: web-app
 spec:
@@ -18,14 +18,23 @@ spec:
       - name: "docker.pkg.github.com"
       containers:
       - name: web-app
-        image: "docker.pkg.github.com/cloud-71/web-app/web-app:0.1"
+        image: "docker.pkg.github.com/cloud-71/web-app/web-app:10"
         ports:
         - containerPort: 3000
+        env:
+          - name: COUCHDB_HOST
+            value: "couchdb-couchdb.default.svc.cluster.local:5984"
+          - name: COUCHDB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: couchdb-couchdb
+                key: adminPassword
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-app-service
+  name: web-app
 spec:
   selector:
     app: web-app
@@ -37,8 +46,8 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: web-app-ingress
+  name: web-app
 spec:
   backend:
-    serviceName: web-app-service
+    serviceName: web-app
     servicePort: 80
