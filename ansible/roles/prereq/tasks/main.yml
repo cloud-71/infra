@@ -24,7 +24,7 @@
     regexp: '^{{ item.key }}\ ?='
     line: "{{ item.key }}='{{ item.value }}'"
   with_dict:
-    {{ proxy_env }}
+    "{{ proxy_env }}"
 
 - name: Configure Docker proxy
   copy:
