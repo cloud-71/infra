@@ -5,7 +5,7 @@ The ansible stuff and CouchDB Kubernetes template
 
 1. Install [JQ](https://stedolan.github.io/jq/):
 
-    brew install JQ
+    brew install jq
 
 2. Ensure you have the openstack CLI and heat plugin:
 
