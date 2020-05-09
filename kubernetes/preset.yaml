@@ -15,4 +15,4 @@ spec:
     - name: https_proxy
       value: "http://wwwproxy.unimelb.edu.au:8000/"
     - name: no_proxy
-      value: "localhost,127.0.0.1,localaddress,172.16.0.0/12,10.42.0.0/16,.melbourne.rc.nectar.org.au,.storage.unimelb.edu.au,.cloud.unimelb.edu.au"
+      value: "localhost,127.0.0.1,localaddress,172.16.0.0/12,10.0.0.0/8,.melbourne.rc.nectar.org.au,.storage.unimelb.edu.au,.cloud.unimelb.edu.au,.local"
