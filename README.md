@@ -6,12 +6,16 @@ The ansible stuff and CouchDB Kubernetes template
 Set up a dev cluster using
 
     brew install k3d
-    k3d create --publish 5984:80 --workers=3
+    k3d create --publish 5984:5984 --server-arg=disable=traefik
     export KUBECONFIG=$(k3d get-kubeconfig)
+
+Set up the ingress controller using
+
+    kubectl apply -f kubernetes/haproxy-ingress.yml
 
 Install CouchDB using
 
-    kubectl apply -f couchdb.yml
+    kubectl apply -f kubernetes/couchdb-dev.yml
 
 Monitor progress:
 
@@ -23,7 +27,7 @@ Once it settles down, check whether it worked:
 
 CouchDB can be contacted using
 
-    curl -H "Host: chart-example.local" localhost:5984/
+    curl -H localhost:5984/
 
 
 Get CouchDB admin password:
@@ -33,5 +37,5 @@ Get CouchDB admin password:
 
 Make a GET command to couchdb that requires admin access (replace generated admin secret):
 
-    curl -X GET -H "Host: chart-example.local" http://admin:dZi2nSHIyPdxfallYOzp@127.0.0.1:5984/_all_dbs
+    curl http://admin:dZi2nSHIyPdxfallYOzp@127.0.0.1:5984/_all_dbs
  
