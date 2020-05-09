@@ -29,7 +29,7 @@ provision our infrastructure.  You can refer to the
 
 1. [Obtain password](https://dashboard.cloud.unimelb.edu.au/settings/reset-password/) from MRC dashboard (reset is fine).
 
-2. [Download](https://dashboard.cloud.unimelb.edu.au/project/api_access/openrc/) and source the OpenStack RC file
+2. [Download](https://dashboard.cloud.unimelb.edu.au/project/api_access/openrc/) and source the OpenStack RC file, when prompted enter password from step 1
 
     source ~/Downloads/unimelb-comp90024-2020-grp-71-openrc
 
@@ -54,6 +54,7 @@ provision our infrastructure.  You can refer to the
 7. Copy the private key
 
     openstack stack output show -f json <name> private_key | jq -r '.output_value' > ~/.ssh/id_group71
+    chmod 600 ~/.ssh/id_group71
 
 ## Ansible
 
@@ -73,7 +74,7 @@ to set up our Kubernetes cluster.
 
 3. Copy the Kubernetes configuration from the cloud to your local machine.
 
-    cp debian@<master_ip>:/etc/rancher/k3s/k3s.yaml ~/group71_kubeconfig
+    scp -i ~/.ssh/id_group71 debian@<master_ip>:/etc/rancher/k3s/k3s.yaml ~/group71_kubeconfig
 
 4. Edit kubeconfig to change IP to master IP
 
@@ -81,7 +82,7 @@ to set up our Kubernetes cluster.
 
 5. export kubeconfig env var
 
-    export KUBECONFIG="~/group71_kubeconfig"
+    export KUBECONFIG="${HOME}/group71_kubeconfig"
 
 
 ## K3D Setup Instructions
