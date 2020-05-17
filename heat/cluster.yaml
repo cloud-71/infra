@@ -66,8 +66,9 @@ resources:
   cluster:
     type: OS::Heat::AutoScalingGroup
     properties:
-      min_size: 2
-      max_size: 2
+      #changed this so it can run in personal instances. shouldn't break anything right?
+      min_size: 2 
+      max_size: 4
       resource:
         type: node.yaml
         properties:
