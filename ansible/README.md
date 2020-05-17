@@ -1,54 +1,29 @@
-# Build a Kubernetes cluster using k3s via Ansible
+## Ansible
 
-Author: <https://github.com/itwars>
+Once we have provisioned our OpenStack resources using Heat, we can use Ansible
+to set up our Kubernetes cluster.
 
-## K3s Ansible Playbook
+0. Connect to the unimelb VPN (you can use the Cisco AnyConnect app instead)
 
-Build a Kubernetes cluster using Ansible with k3s. The goal is easily install a Kubernetes cluster on machines running:
+       openconnect remote.unimelb.edu.au/student
 
-- [X] Debian
-- [ ] Ubuntu
-- [X] CentOS
+1. Update `inventory/hosts.ini` with the IP addresses from [Heat Step 6][heat],
+   choosing one of them as the master and the remaining 3 as nodes.
 
-on processor architecture:
+2. Run the ansible playbook
 
-- [X] x64
-- [X] arm64
-- [X] armhf
+       ansible-playbook site.yml -i inventory/hosts.ini --key-file ~/.ssh/id_group71
 
-## System requirements
+3. Copy the Kubernetes configuration from the cloud to your local machine.
 
-Deployment environment must have Ansible 2.4.0+
-Master and nodes must have passwordless SSH access
+       scp -i ~/.ssh/id_group71 debian@<master_ip>:/etc/rancher/k3s/k3s.yaml ~/group71_kubeconfig
 
-## Usage
+4. Edit kubeconfig to change IP to master IP
 
-Add the system information gathered above into a file called hosts.ini. For example:
+       sed --in-place 's/127.0.0.1/<master_ip>/' ~/group71_kubeconfig
 
-```bash
-[master]
-192.16.35.12
+5. export kubeconfig env var
 
-[node]
-192.16.35.[10:11]
+       export KUBECONFIG="${HOME}/group71_kubeconfig"
 
-[k3s-cluster:children]
-master
-node
-
-```
-
-Start provisioning of the cluster using the following command:
-
-```bash
-ansible-playbook site.yml -i inventory/hosts.ini
-```
-
-## Kubeconfig
-
-To get access to your **Kubernetes** cluster just
-
-```bash
-scp debian@master_pi:~/kube/config ~/.kube/config
-```
-
+[heat]: (../heat)
