@@ -18,6 +18,4 @@ spec:
       - name: "docker.pkg.github.com"
       containers:
       - name: twitter-harvester
-        image: "docker pull docker.pkg.github.com/cloud-71/twitter-harvester/twitter-harvester:3"
-        ports:
-        - containerPort: 3000
+        image: "docker.pkg.github.com/cloud-71/twitter-harvester/twitter-harvester:3"

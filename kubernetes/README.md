@@ -1,18 +1,35 @@
+# Kubernetes manifests
+
+We are using kubectl to deploy our Kubernetes resources, k3d to test changes
+locally on our computers, and [Kustomize][kustomize] to adapt our manifests for
+local development and cloud deployment. You can install them using:
+
+    brew install k3d kustomize kubectl
+
+The [base](./base) directory contains the shared resources that are useful locally as well as in the cloud, e.g. our web app, Twitter harvester, AURIN downloader, and CouchDB cluster.
+
+The [cloud](./cloud) directory extends these shared resources with some others that only make sense on the Melbourne Research Cloud, e.g. the Cinder storage provider plugin that is used to attach persistent volumes and the Melbourne Uni proxy pod preset. It also patches the CouchDB helm chart to enable cloud-specific features.
+
+The [local](./local) directory references the shared resources, and patches the CouchDB deployment to add an ingress for ease of development.
+
+## Deploy to the Melbourne Research Cloud
+
+First, ensure you have set up your `KUBECONFIG` to point to the K3s cluster on
+Melbourne Research Cloud that was created [using Ansible](../ansible). Then,
+you can run the following command to deploy everything:
+
+    kustomize build cloud | kubectl apply -f -
+
 ## K3D Setup Instructions
 
 Set up a dev cluster on your local machine using
 
-    brew install k3d
     k3d create --publish 5984:5984 --server-arg=disable=traefik
     export KUBECONFIG=$(k3d get-kubeconfig)
 
-Set up the ingress controller using
+Deploy the manifests using
 
-    kubectl apply -f kubernetes/haproxy-ingress.yml
-
-Install CouchDB using
-
-    kubectl apply -f kubernetes/couchdb-dev.yml
+    kustomize build local | kubectl apply -f -
 
 Monitor progress:
 
@@ -57,6 +74,7 @@ being able to pull images. k3d uses containerd so it is affected. As a workaroun
 4. Deploy the Kubernetes manifest (which should refer to the same tag as the
    one you used in the previous two steps):
 
-       kubectl apply -f web-app.yml
+       kustomize build local | kubectl apply -f -
         
 [docker-login]: https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages#authenticating-to-github-packages
+[kustomize]: https://kustomize.io
