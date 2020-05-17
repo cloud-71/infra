@@ -4,7 +4,7 @@ We are using [OpenStack Heat][heat] to provision our infrastructure.
 
 Please refer to the [example templates][heat-examples] and [Resource Type reference][heat-ref].
 
-In the instructions below, <name> is arbitrary and chosen by **you**.
+In the instructions below, `<name>` is arbitrary and chosen by **you**.
 
 1. [Obtain password](https://dashboard.cloud.unimelb.edu.au/settings/reset-password/) from MRC dashboard (reset is fine).
 
