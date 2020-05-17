@@ -7,7 +7,7 @@ to set up our Kubernetes cluster.
 
        openconnect remote.unimelb.edu.au/student
 
-1. Update `inventory/hosts.ini` with the IP addresses from [Heat Step 6][heat],
+1. Update `inventory/hosts.ini` with the IP addresses by running `inventory/update_hosts.py` or manually from [Heat Step 6][heat],
    choosing one of them as the master and the remaining 3 as nodes.
 
 2. Run the ansible playbook
