@@ -1,20 +1,21 @@
 ## Ansible
 
-Once we have provisioned our OpenStack resources using Heat, we can use Ansible
-to set up our Kubernetes cluster.
+Once we have [provisioned our OpenStack resources using Heat](../heat), we can
+use Ansible to set up our Kubernetes cluster.
 
 0. Connect to the unimelb VPN (you can use the Cisco AnyConnect app instead)
 
        openconnect remote.unimelb.edu.au/student
 
-1. Update `inventory/hosts.ini` with the IP addresses by running `inventory/update_hosts.py` or manually from [Heat Step 6][heat],
-   choosing one of them as the master and the remaining 3 as nodes.
+1. Update `inventory/hosts.ini` with the IP addresses by running
+
+       inventory/update_hosts.py
 
 2. Run the ansible playbook
 
        ansible-playbook site.yml -i inventory/hosts.ini --key-file ~/.ssh/id_group71
 
-3. Copy the Kubernetes configuration from the cloud to your local machine.
+3. Copy the Kubernetes configuration from the cloud to your local machine
 
        scp -i ~/.ssh/id_group71 debian@<master_ip>:/etc/rancher/k3s/k3s.yaml ~/group71_kubeconfig
 
@@ -25,5 +26,3 @@ to set up our Kubernetes cluster.
 5. export kubeconfig env var
 
        export KUBECONFIG="${HOME}/group71_kubeconfig"
-
-[heat]: (../heat)

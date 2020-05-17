@@ -4,8 +4,6 @@ We are using [OpenStack Heat][heat] to provision our infrastructure.
 
 Please refer to the [example templates][heat-examples] and [Resource Type reference][heat-ref].
 
-In the instructions below, `<name>` is arbitrary and chosen by **you**.
-
 1. [Obtain password](https://dashboard.cloud.unimelb.edu.au/settings/reset-password/) from MRC dashboard (reset is fine).
 
 2. [Download](https://dashboard.cloud.unimelb.edu.au/project/api_access/openrc/) and source the OpenStack RC file, when prompted enter password from step 1
@@ -22,17 +20,17 @@ In the instructions below, `<name>` is arbitrary and chosen by **you**.
        openstack server list
        openstack server delete <id>
 
-5. Create a new stack
+5. Choose a name for your new stack:
 
-       openstack stack create --template cluster.yaml --environment cluster.params.yaml <name>
+       export STACK_NAME=my-awesome-stack
 
-6. Get the IP addresses
+6. Create the new stack
 
-       openstack stack output show -f json <name> nodes_private_ips | jq -r '.output_value[][0]'
+       openstack stack create --template cluster.yaml --environment cluster.params.yaml ${STACK_NAME}
 
 7. Copy the private key
 
-       openstack stack output show -f json <name> private_key | jq -r '.output_value' > ~/.ssh/id_group71
+       openstack stack output show -f json ${STACK_NAME} private_key | jq -r '.output_value' > ${HOME}/.ssh/id_group71
        chmod 600 ~/.ssh/id_group71
 
 [heat]: https://wiki.openstack.org/wiki/Heat
