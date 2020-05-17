@@ -84,10 +84,17 @@ resources:
       name: group71
       save_private_key: True
 
+  private_key:
+    type: OS::Barbican::Secret
+    properties:
+      name: private_key_secret
+      payload: { get_attr: [key_pair, private_key] }
+      secret_type: private
+
 outputs:
   nodes_private_ips:
     description: Private IP for datanode
     value: { get_attr: [cluster, outputs, private_ip] }
   private_key:
     description: Private ssh key
-    value: { get_attr: [key_pair, private_key] }
+    value: { get_attr: [private_key, decrypted_payload] }
