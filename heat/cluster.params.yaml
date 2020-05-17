@@ -1,5 +1,5 @@
 parameters:
-  key_name: Adam
-  image_id: fbf70c85-1024-44a1-ab3d-1e75ee93bef0
-  flavor: uom.mse.2c9g
-  private_net_id: f0c86d08-d45b-45c4-9216-b8abd6bc133c
+  key_name: key
+  image_id: 215f9775-483c-4e0a-b703-d21a5c966f2e
+  flavor: uom.general.1c4g
+  private_net_id: 00000000-0000-0000-0000-000000000000

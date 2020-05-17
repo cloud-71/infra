@@ -66,8 +66,8 @@ resources:
   cluster:
     type: OS::Heat::AutoScalingGroup
     properties:
-      min_size: 4
-      max_size: 4
+      min_size: 2
+      max_size: 2
       resource:
         type: node.yaml
         properties:
