@@ -4,9 +4,6 @@ description: >
   Our Kubernetes cluster
 
 parameters:
-  key_name:
-    type: string
-    description: Name of keypair to assign to servers
   image_id:
     type: string
     description: ID of image to use for servers
@@ -76,12 +73,21 @@ resources:
             - { get_resource: ssh_security_group }
             - { get_resource: kubernetes_security_group }
             - { get_resource: web_security_group }
-          key_name: { get_param: key_name }
+          key_name: { get_resource: key_pair }
           image_id: { get_param: image_id }
           flavor: { get_param: flavor }
           private_net_id: { get_param: private_net_id }
-          
+
+  key_pair:
+    type: OS::Nova::KeyPair
+    properties:
+      name: group71
+      save_private_key: True
+
 outputs:
   nodes_private_ips:
     description: Private IP for datanode
     value: { get_attr: [cluster, outputs, private_ip] }
+  private_key:
+    description: Private ssh key
+    value: { get_attr: [key_pair, private_key] }
