@@ -78,7 +78,7 @@ def main():
 
         # Write the new hosts.ini file
         server_ips = get_host_groups_from_cloud(inventory)
-        with open('hosts.ini', 'w+') as f:
+        with open('ansible/inventory/hosts.ini', 'w+') as f:
             f.write('[master]\n')
             f.write(server_ips[0] + '\n')
             f.write('[node]\n')
