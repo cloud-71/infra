@@ -10,3 +10,6 @@ spec:
   set:
     couchdbConfig.couchdb.uuid: "c919eea8e3334375a9532956ce40e49f"
     image.tag: "3.0.0"
+    persistentVolume.enabled: "true"
+    persistentVolume.size: "50Gi"
+    persistentVolume.storageClass: "csi-sc-cinderplugin"
