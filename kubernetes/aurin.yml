@@ -12,7 +12,7 @@ spec:
       - name: "docker.pkg.github.com"
       containers:
       - name: aurin-harvester
-        image: "docker.pkg.github.com/cloud-71/aurin-harvester/aurin-harvester:1"
+        image: "docker.pkg.github.com/cloud-71/aurin-harvester/aurin-harvester:latest"
         ports:
         - containerPort: 3000
         env:
