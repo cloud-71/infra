@@ -25,5 +25,5 @@ spec:
             value: "aurin:datasource-VIC_Govt_CSA-UoM_AURIN_DB_csa_family_violence_family_incident_lga_jul2013_jun2018"
         command: ["python"]
         # <kubectl apply --help> doesn't show any options to pass args into the config file, so its hardcoded for now
-        args: ["aurinapi.py", "-s", "admin:$(COUCHDB_PASSWORD)","$(COUCHDB_HOST)", "-ad", "$(DATASET_ID)"]
-        restartPolicy: Never
+        args: ["aurinapi.py", "-s", "admin:$(COUCHDB_PASSWORD)","$(COUCHDB_HOST)", "-ad", "$(DATASET_ID)"] 
+      restartPolicy: OnFailure
