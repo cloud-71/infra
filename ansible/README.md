@@ -15,14 +15,7 @@ use Ansible to set up our Kubernetes cluster.
 
        ansible-playbook site.yml -i inventory/hosts.ini --key-file ~/.ssh/id_group71
 
-3. Copy the Kubernetes configuration from the cloud to your local machine
 
-       scp -i ~/.ssh/id_group71 debian@<master_ip>:/etc/rancher/k3s/k3s.yaml ~/group71_kubeconfig
-
-4. Edit kubeconfig to change IP to master IP
-
-       sed --in-place 's/127.0.0.1/<master_ip>/' ~/group71_kubeconfig
-
-5. export kubeconfig env var
+3.  Copy the kubeconfig export line from the ansible debug output and execute it
 
        export KUBECONFIG="${HOME}/group71_kubeconfig"
