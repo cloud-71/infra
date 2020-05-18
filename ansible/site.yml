@@ -19,3 +19,19 @@
   environment: "{{ proxy_env }}"
   roles:
     - { role: k3s/node }
+
+- hosts: localhost
+  environment:
+    KUBECONFIG: '${HOME}/group71_kubeconfig'
+  tasks:
+    - name: Replace localhost entry with master IP
+      replace:
+        path: ~/group71_kubeconfig
+        regexp: '127\.0\.0\.1'
+        replace: "{{ groups['master'][0] }}"
+    - command: 'echo export KUBECONFIG=$KUBECONFIG'
+      register: output1
+
+    - debug:
+        msg:
+          - "{{ output1.stdout }}"

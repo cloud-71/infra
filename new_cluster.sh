@@ -26,7 +26,7 @@ openstack stack create --template heat/cluster.yaml --environment heat/cluster.p
 
 # Wait two minutes for stack creation to complete
 echo 'Waiting for stack to be created'
-sleep 120
+sleep 180
 
 # Copy the private key to local ssh keystore
 openstack stack output show -f json ${STACK_NAME} private_key | jq -r '.output_value' > ${HOME}/.ssh/id_group71
