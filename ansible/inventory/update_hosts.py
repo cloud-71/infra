@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Adapted from https://raw.githubusercontent.com/ansible/ansible/stable-2.9/contrib/inventory/openstack_inventory.py
 
@@ -97,4 +97,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
