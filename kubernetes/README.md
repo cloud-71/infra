@@ -15,8 +15,17 @@ The [local](./local) directory references the shared resources, and patches the 
 ## Deploy to the Melbourne Research Cloud
 
 First, ensure you have set up your `KUBECONFIG` to point to the K3s cluster on
-Melbourne Research Cloud that was created [using Ansible](../ansible). Then,
-you can run the following command to deploy everything:
+Melbourne Research Cloud that was created [using Ansible](../ansible).
+(Note the command to export KUBECONFIG is printed in the last step of the ansible playbook) 
+
+Ensure you have a github personal access token with the right permissions and store it in a file like ~/TOKEN.txt:
+https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
+
+Create a kubernetes secret. Ensure the second param after secret (docker.pkg.github.com) is in the name under imagepullsecret of the appropriate kubernetes yaml file.
+
+    kubectl create secret docker-registry docker.pkg.github.com --docker-server=docker.pkg.github.com --docker-username="Your_Github_Username" --docker-password="$(cat ~/TOKEN.txt)"
+    
+Then, you can run the following command to deploy everything:
 
     kustomize build cloud | kubectl apply -f -
 
