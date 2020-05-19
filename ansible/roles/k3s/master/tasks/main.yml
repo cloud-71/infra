@@ -23,3 +23,9 @@
   systemd:
     state: started
     name: k3s
+
+- name: Copy Kubernetes config from cloud to local machine
+  fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: ~/group71_kubeconfig
+    flat: true
