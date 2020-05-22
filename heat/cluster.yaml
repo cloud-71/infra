@@ -19,7 +19,6 @@ resources:
     type: OS::Neutron::SecurityGroup
     properties:
       description: Kubernetes security group
-      name: k8s
       rules:
         - remote_ip_prefix: 0.0.0.0/0
           protocol: tcp
@@ -38,7 +37,6 @@ resources:
     type: OS::Neutron::SecurityGroup
     properties:
       description: "HTTP/HTTPS security group"
-      name: web
       rules:
         - remote_ip_prefix: 0.0.0.0/0
           protocol: tcp
@@ -53,7 +51,6 @@ resources:
     type: OS::Neutron::SecurityGroup
     properties:
       description: SSH security group
-      name: web
       rules:
         - remote_ip_prefix: 0.0.0.0/0
           protocol: tcp
@@ -81,13 +78,13 @@ resources:
   key_pair:
     type: OS::Nova::KeyPair
     properties:
-      name: group71
+      name:
+        list_join: ['-', [{ get_param: OS::stack_name }, 'key_pair']]
       save_private_key: True
 
   private_key:
     type: OS::Barbican::Secret
     properties:
-      name: private_key_secret
       payload: { get_attr: [key_pair, private_key] }
       secret_type: private
 
