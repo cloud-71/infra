@@ -4,7 +4,18 @@
   environment:
     INSTALL_K3S_EXEC: "server {{ extra_k3s_args }}"
     INSTALL_K3S_VERSION: "{{ k3s_version }}"
-  shell: "/tmp/k3s-install.sh"
+  command: "/tmp/k3s-install.sh"
+
+- name: Kustomize
+  delegate_to: localhost
+  become: no
+  command: "kustomize build {{ manifest_path }}"
+  register: manifests
+
+- name: Upload manifests
+  copy:
+    content: "{{ manifests.stdout }}"
+    dest: /var/lib/rancher/k3s/server/manifests/group71.yml
 
 - name: Wait for node-token
   wait_for:
@@ -29,3 +40,14 @@
     src: /etc/rancher/k3s/k3s.yaml
     dest: ~/group71_kubeconfig
     flat: true
+
+- name: Replace localhost entry with master IP
+  delegate_to: localhost
+  become: no
+  replace:
+    path: ~/group71_kubeconfig
+    regexp: '127\.0\.0\.1'
+    replace: "{{ master_ip }}"
+
+- debug:
+    msg: "export KUBECONFIG=${HOME}/group71_kubeconfig"
