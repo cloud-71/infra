@@ -15,20 +15,24 @@ spec:
         app: web-app
     spec:
       imagePullSecrets:
-      - name: "docker.pkg.github.com"
+        - name: "docker.pkg.github.com"
       containers:
-      - name: web-app
-        image: "docker.pkg.github.com/cloud-71/web-app/web-app:14"
-        ports:
-        - containerPort: 3000
-        env:
-          - name: COUCHDB_HOST
-            value: "couchdb-couchdb.default.svc.cluster.local:5984"
-          - name: COUCHDB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: couchdb-couchdb
-                key: adminPassword
+        - name: web-app
+          image: "docker.pkg.github.com/cloud-71/web-app/web-app:14"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: COUCHDB_DATABASE_AURIN
+              value: "domestic_violence_vic"
+            - name: COUCHDB_DATABASE_TWITTER
+              value: "twitter_test"
+            - name: COUCHDB_HOST
+              value: "couchdb-couchdb.default.svc.cluster.local:5984"
+            - name: COUCHDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: couchdb-couchdb
+                  key: adminPassword
 
 ---
 apiVersion: v1
