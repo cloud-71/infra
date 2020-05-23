@@ -30,8 +30,8 @@ Twitter harvester, the AURIN downloader and the web app.
 
 3. [Deploy the Kubernetes manifests using kubectl](./kubernetes)
 
-## Alternative Deploy
+## One-click deploy
+
 1. From this dir, run ./new_cluster ClusterName
 
-2. [Deploy the Kubernetes manifests using kubectl](./kubernetes)
-
+2. There is no second step
