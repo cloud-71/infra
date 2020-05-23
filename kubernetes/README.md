@@ -53,7 +53,7 @@ to CouchDB.
 
 5. Monitor progress:
 
-       kubectl --all-namespaces get events --watch
+       kubectl get events --all-namespaces --watch
 
 ## Local development
 
