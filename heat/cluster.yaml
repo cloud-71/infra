@@ -60,7 +60,6 @@ resources:
   cluster:
     type: OS::Heat::AutoScalingGroup
     properties:
-      #changed this so it can run in personal instances. shouldn't break anything right?
       min_size: 2 
       max_size: 4
       resource:
