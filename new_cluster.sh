@@ -7,6 +7,7 @@
 set -euo pipefail
 
 stack_name=$1
+target_group=$2
 key_file="$HOME/.ssh/id_group71"
 
 # Check for existing clusters
@@ -23,7 +24,7 @@ fi
 
 # Create new cluster
 echo "Creating the following stack: $stack_name"
-openstack stack create --wait --template heat/cluster.yaml --environment heat/cluster.params.yaml "$stack_name"
+openstack stack create --wait --template heat/cluster.yaml --environment heat/cluster.$target_group.params.yaml "$stack_name"
 
 # Copy the private key to local ssh keystore
 openstack stack output show -f json "$stack_name" private_key | jq --raw-output '.output_value' > "$key_file"
