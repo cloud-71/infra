@@ -1,0 +1,7 @@
+parameters:
+  # NeCTAR Debian 10 (Buster) amd64 
+  image_id: fbf70c85-1024-44a1-ab3d-1e75ee93bef0
+  # "uom-qh2 internal" network id
+  private_net_id: f0c86d08-d45b-45c4-9216-b8abd6bc133c
+  flavor: uom.general.1c4g
+  desired_capacity: 2
