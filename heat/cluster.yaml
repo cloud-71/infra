@@ -69,7 +69,7 @@ resources:
       #changed this so it can run in personal instances. shouldn't break anything right?
       min_size: 2 
       max_size: 4
-      desired_capacity: { get_resource: desired_capacity} 
+      desired_capacity: { get_param: desired_capacity } 
       resource:
         type: node.yaml
         properties:
