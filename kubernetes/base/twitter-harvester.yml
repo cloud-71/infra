@@ -18,4 +18,14 @@ spec:
       - name: "docker.pkg.github.com"
       containers:
       - name: twitter-harvester
-        image: "docker.pkg.github.com/cloud-71/twitter-harvester/twitter-harvester:4"
+        image: "docker.pkg.github.com/cloud-71/twitter-harvester/twitter-harvester:6"
+        env:
+          - name: COUCHDB_HOST
+            value: "couchdb-couchdb.default.svc.cluster.local:5984"
+          - name: COUCHDB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: couchdb-couchdb
+                key: adminPassword
+          - name: COUCHDB_DB_NAME
+            value: "twitter_data"

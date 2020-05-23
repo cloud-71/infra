@@ -53,7 +53,7 @@ to CouchDB.
 
 5. Monitor progress:
 
-       kubectl --all-namespaces get events --watch
+       kubectl get events --all-namespaces --watch
 
 ## Local development
 
@@ -64,7 +64,7 @@ to CouchDB.
 
 2. There is a bug in the GitHub Docker registry that prevents `containerd` from
    being able to pull images. k3d uses `containerd` so it is affected. As a
-   workaround, you can [log in to our private Docker registry](docker-login):
+   workaround, you can [log in to our private Docker registry][docker-login]:
 
        cat ~/TOKEN.txt | docker login https://docker.pkg.github.com -u USERNAME --password-stdin
 
@@ -89,7 +89,7 @@ to CouchDB.
 
 6. Monitor progress:
 
-       kubectl --all-namespaces get events --watch
+       kubectl get events --all-namespaces --watch
 
 7. Once the dust settles, check whether it worked:
 
