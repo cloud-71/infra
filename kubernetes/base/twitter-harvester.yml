@@ -27,3 +27,5 @@ spec:
               secretKeyRef:
                 name: couchdb-couchdb
                 key: adminPassword
+          - name: COUCHDB_DB_NAME
+            value: "twitter_data"
