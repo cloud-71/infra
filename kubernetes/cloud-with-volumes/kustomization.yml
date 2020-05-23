@@ -9,6 +9,8 @@ resources:
 - resources/cinder-csi-plugin/csi-cinder-driver.yaml
 - resources/cinder-csi-plugin/csi-secret-cinderplugin.yaml
 - resources/storageclass.yml
+generators:
+- barbican-secret-generator.yml
 patches:
 - patch: |-
     kind: HelmChart

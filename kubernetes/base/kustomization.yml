@@ -6,3 +6,5 @@ resources:
 - resources/haproxy-ingress.yml
 - resources/twitter-harvester.yml
 - resources/web-app.yml
+generators:
+- barbican-secret-generator.yml
