@@ -1,13 +1,14 @@
 ---
 - hosts: all
   gather_facts: no
+  any_errors_fatal: true
   tasks:
     - name: Wait for connection from the hosts
       wait_for_connection:
         connect_timeout: 5
         delay: 5
         sleep: 10
-        timeout: 180
+        timeout: 60
 
 - hosts: k3s-cluster
   gather_facts: yes

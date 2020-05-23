@@ -21,14 +21,12 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
+import os
 from distutils.version import StrictVersion
 from io import StringIO
 
 import openstack as sdk
 from openstack.cloud import inventory as sdk_inventory
-from openstack.config import loader as cloud_config
-
-CONFIG_FILES = ['/etc/ansible/openstack.yaml', '/etc/ansible/openstack.yml']
 
 
 def append_hostvars(hostvars, server, namegroup=False):
@@ -39,20 +37,9 @@ def append_hostvars(hostvars, server, namegroup=False):
 
 
 def get_host_groups_from_cloud(inventory):
-    list_args = {}
-    if hasattr(inventory, 'extra_config'):
-        use_hostnames = inventory.extra_config['use_hostnames']
-        list_args['expand'] = inventory.extra_config['expand_hostvars']
-        if StrictVersion(sdk.version.__version__) >= StrictVersion("0.13.0"):
-            list_args['fail_on_cloud_config'] = \
-                inventory.extra_config['fail_on_errors']
-    else:
-        use_hostnames = False
-
     server_ips = []
-    for server in inventory.list_hosts(**list_args):
+    for server in inventory.list_hosts():
         server_ips.append(server['interface_ip'])
-
     return server_ips
 
 
@@ -60,20 +47,7 @@ def main():
     try:
         # openstacksdk library may write to stdout, so redirect this
         sys.stdout = StringIO()
-        config_files = cloud_config.CONFIG_FILES + CONFIG_FILES
-        inventory_args = {}
-        if hasattr(sdk_inventory.OpenStackInventory, 'extra_config'):
-            inventory_args.update(dict(
-                config_key='ansible',
-                config_defaults={
-                    'use_hostnames': False,
-                    'expand_hostvars': False,
-                    'fail_on_errors': True,
-                }
-            ))
-
-        inventory = sdk_inventory.OpenStackInventory(**inventory_args)
-
+        inventory = sdk_inventory.OpenStackInventory(cloud=os.environ.get('OS_CLOUD'))
         sys.stdout = sys.__stdout__
 
         # Write the new hosts.ini file
@@ -88,12 +62,9 @@ def main():
             f.write('master\n')
             f.write('node\n')
 
-
     except sdk.exceptions.OpenStackCloudException as e:
         sys.stderr.write('%s\n' % e.message)
         sys.exit(1)
-    sys.exit(0)
-
 
 if __name__ == '__main__':
     main()
