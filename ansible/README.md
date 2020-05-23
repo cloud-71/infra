@@ -16,6 +16,6 @@ use Ansible to set up our Kubernetes cluster.
        ansible-playbook site.yml -i inventory/hosts.ini --key-file ~/.ssh/id_group71
 
 
-3.  Copy the kubeconfig export line from the ansible debug output and execute it
+3. Copy the kubeconfig export line from the ansible debug output and execute it
 
        export KUBECONFIG="${HOME}/group71_kubeconfig"
