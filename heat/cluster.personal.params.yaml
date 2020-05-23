@@ -1,0 +1,6 @@
+parameters:
+  # NeCTAR Debian 10 (Buster) amd64 
+  image_id: fbf70c85-1024-44a1-ab3d-1e75ee93bef0
+  # "Classic Provider" network id
+  private_net_id: 00000000-0000-0000-0000-000000000000
+  flavor: uom.general.1c4g
