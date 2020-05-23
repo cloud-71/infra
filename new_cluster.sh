@@ -7,7 +7,8 @@
 set -euo pipefail
 
 stack_name=$1
-target_group=$2
+# target_group defaults to "project" setting
+target_group=${2:-project}
 key_file="$HOME/.ssh/id_group71"
 
 # Check for existing clusters
