@@ -89,7 +89,7 @@ to CouchDB.
 
 6. Monitor progress:
 
-       kubectl --all-namespaces get events --watch
+       kubectl get events --all-namespaces --watch
 
 7. Once the dust settles, check whether it worked:
 
