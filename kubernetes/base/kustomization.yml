@@ -1,8 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- aurin.yml
-- couchdb.yml
-- haproxy-ingress.yml
-- twitter-harvester.yml
-- web-app.yml
+- ./resources/aurin.yml
+- ./resources/couchdb.yml
+- ./resources/haproxy-ingress.yml
+- ./resources/twitter-harvester.yml
+- ./resources/web-app.yml

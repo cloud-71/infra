@@ -2,13 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../cloud
-- cinder-csi-plugin/cinder-csi-controllerplugin-rbac.yaml
-- cinder-csi-plugin/cinder-csi-controllerplugin.yaml
-- cinder-csi-plugin/cinder-csi-nodeplugin-rbac.yaml
-- cinder-csi-plugin/cinder-csi-nodeplugin.yaml
-- cinder-csi-plugin/csi-cinder-driver.yaml
-- cinder-csi-plugin/csi-secret-cinderplugin.yaml
-- storageclass.yml
+- resources/cinder-csi-plugin/cinder-csi-controllerplugin-rbac.yaml
+- resources/cinder-csi-plugin/cinder-csi-controllerplugin.yaml
+- resources/cinder-csi-plugin/cinder-csi-nodeplugin-rbac.yaml
+- resources/cinder-csi-plugin/cinder-csi-nodeplugin.yaml
+- resources/cinder-csi-plugin/csi-cinder-driver.yaml
+- resources/cinder-csi-plugin/csi-secret-cinderplugin.yaml
+- resources/storageclass.yml
 patches:
 - target:
     kind: HelmChart
