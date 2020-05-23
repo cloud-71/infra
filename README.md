@@ -22,18 +22,18 @@ Twitter harvester, the AURIN downloader and the web app.
 
        brew install openconnect
 
-## Deploy
+## One-click deploy
+
+1. Run `./new_cluster ClusterName` if creating in the project group. Otherwise,
+`./new_cluster ClusterName personal` for personal group. (Make sure the sourced
+rcfile is correct!)
+
+2. There is no second step
+
+## Steps invoved in Deployment
 
 1. [Provision the infrastructure using OpenStack Heat](./heat)
 
 2. [Set up a Kubernetes cluster using Ansible](./ansible)
 
 3. [Deploy the Kubernetes manifests using kubectl](./kubernetes)
-
-## One-click deploy
-
-1. From this dir, run `./new_cluster ClusterName personal` if creating in your
-personal group (make sure you've sourced the right rc file!). Otherwise, defaults
-to project group.
-
-2. There is no second step

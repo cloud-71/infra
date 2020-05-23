@@ -4,3 +4,4 @@ parameters:
   # "uom-qh2 internal" network id
   private_net_id: f0c86d08-d45b-45c4-9216-b8abd6bc133c
   flavor: uom.general.1c4g
+  desired_capacity: 2
