@@ -9,7 +9,7 @@
 - name: Kustomize
   delegate_to: localhost
   become: no
-  command: "kustomize build {{ manifest_path }}"
+  command: "../kubernetes/kustomize_build.sh {{ manifest_path }}"
   register: manifests
 
 - name: Upload manifests
