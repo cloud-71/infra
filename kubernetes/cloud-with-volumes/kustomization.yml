@@ -10,10 +10,7 @@ resources:
 - resources/cinder-csi-plugin/csi-secret-cinderplugin.yaml
 - resources/storageclass.yml
 patches:
-- target:
-    kind: HelmChart
-    name: couchdb
-  patch: |-
+- patch: |-
     kind: HelmChart
     metadata:
       name: couchdb
@@ -22,3 +19,6 @@ patches:
         persistentVolume.enabled: "true"
         persistentVolume.size: "50Gi"
         persistentVolume.storageClass: "csi-sc-cinderplugin"
+  target:
+    kind: HelmChart
+    name: couchdb
