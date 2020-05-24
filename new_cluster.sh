@@ -10,6 +10,14 @@ stack_name=$1
 # target_group defaults to "project" setting
 target_group=${2:-project}
 key_file="$HOME/.ssh/id_group71"
+manifest_variant=$(
+if [[ "$target_group" == "project" ]]
+then
+  echo "cloud-with-volumes";
+else
+  echo "cloud";
+fi
+)
 
 # Check for existing clusters
 old_stack_names=$(openstack stack list -f json | jq --raw-output '.[]."Stack Name"')
@@ -25,7 +33,7 @@ fi
 
 # Create new cluster
 echo "Creating the following stack: $stack_name"
-openstack stack create --wait --template heat/cluster.yaml --environment heat/cluster.$target_group.params.yaml "$stack_name"
+openstack stack create --wait --template heat/cluster.yaml --environment "heat/cluster.$target_group.params.yaml" "$stack_name"
 
 # Copy the private key to local ssh keystore
 openstack stack output show -f json "$stack_name" private_key | jq --raw-output '.output_value' > "$key_file"
@@ -35,4 +43,7 @@ chmod 600 "$key_file"
 ansible/inventory/update_hosts.py
 
 # Run the ansible playbook
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook ansible/site.yml -i ansible/inventory/hosts.ini --key-file "$key_file"
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook ansible/site.yml \
+                                              -i ansible/inventory/hosts.ini \
+                                              --key-file "$key_file" \
+                                              --extra-vars "manifest_path=../kubernetes/${manifest_variant}"

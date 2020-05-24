@@ -89,6 +89,8 @@ resources:
     type: OS::Barbican::Secret
     properties:
       payload: { get_attr: [key_pair, private_key] }
+      name:
+        list_join: ['-', [{ get_param: OS::stack_name }, 'private_key']]
       secret_type: private
 
 outputs:
