@@ -18,8 +18,32 @@ Melbourne proxy settings necessary to run on the `qh2-uom-internal` network.
 This variant is useful for projects that don't have access to external volumes.
 
 [cloud-with-volumes](./cloud-with-volumes) further extends the cloud variant
-with a Cinder storage provider plugin that is used to attach external volumes
-to CouchDB.
+with a Cinder storage provider that is used to attach external volumes to
+CouchDB.
+
+## Secrets
+
+Before anything can can be deployed, Kubernetes requires access to the
+following credentials:
+
+* A personal access token for our private GitHub Docker image registry, which
+  is used as an `imagePullSecret`
+
+* An OpenStack Application Credential with privileges to create Cinder Volumes
+  (only needed when deploying the `cloud-with-volumes` variant)
+
+* A Twitter API key to use for harvesting tweets
+
+* An AURIN API key to use for downloading datasets
+
+The `./kustomize_build` script harnesses a [Kustomize plugin][plugin] that
+extracts these secrets from the OpenStack Barbican key manager and transforms
+them into Kubernetes `Secret` resource manifests. We have defined a
+[`BarbicanSecret` manifest](./base/barbican-secret-generator.yml) that
+specifies which secrets should be extracted.
+
+We assume that the relevant Barbican secrets [have been created](./SECRETS.md).
+Ensure you have sourced the relevant cloud credentials before proceeding.
 
 ## Deploy to a Kubernetes cluster
 
@@ -28,30 +52,17 @@ to CouchDB.
    is printed in the last step of the playbook.  Use `kubectl cluster-info` to
    debug this.
 
-2. Ensure you have a [GitHub personal access token][gh-token] with permissions
-   to pull images from the GitHub Docker registry and store it in a file like
-   `~/TOKEN.txt`.
-
-3. Create a kubernetes secret. Ensure the second param after secret
-   (docker.pkg.github.com) is in the name under `imagePullSecret` of the
-   appropriate kubernetes yaml file.
-
-       kubectl create secret docker-registry docker.pkg.github.com \
-         --docker-server=docker.pkg.github.com \
-         --docker-username="Your_Github_Username" \
-         --docker-password="$(cat ~/TOKEN.txt)"
-    
-4. If you are using to your personal project, you can deploy all Kubernetes
+2. If you are using to your personal project, you can deploy all Kubernetes
    manifests using:
 
-       kustomize build cloud | kubectl apply -f -
+       ./kustomize_build.sh cloud | kubectl apply -f -
 
    If you want CouchDB to store its data in OpenStack Cinder volumes, which are
    only available in the group project, use:
 
-       kustomize build cloud-with-volumes | kubectl apply -f -
+       ./kustomize_build.sh cloud-with-volumes | kubectl apply -f -
 
-5. Monitor progress:
+3. Monitor progress:
 
        kubectl get events --all-namespaces --watch
 
@@ -85,7 +96,7 @@ to CouchDB.
 
 5. Deploy the Kubernetes manifests:
 
-       kustomize build local | kubectl apply -f -
+       ./kustomize_build.sh local | kubectl apply -f -
 
 6. Monitor progress:
 
@@ -97,11 +108,11 @@ to CouchDB.
 
 8. CouchDB can be contacted using
 
-        curl -H localhost:5984/
+       curl -H localhost:5984/
 
 9. Get CouchDB admin password:
 
-        kubectl get secret couchdb-couchdb -o go-template='{{ .data.adminPassword }}' | base64 --decode
+       kubectl get secret couchdb-couchdb -o go-template='{{ .data.adminPassword }}' | base64 --decode
 
 10. Make a GET command to couchdb that requires admin access (replace generated admin secret):
 
@@ -111,3 +122,4 @@ to CouchDB.
 [docker-login]: https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages#authenticating-to-github-packages
 [kustomize]: https://kustomize.io
 [gh-token]: https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
+[plugin]: ./kustomize_plugins/group71/barbicansecret/BarbicanSecret
