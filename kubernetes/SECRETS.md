@@ -68,10 +68,22 @@
 
 2. Once the tokens have been generated, store them with the following commands:
 
-`openstack secret store --name="consumer-token" --payload-content-type="text/plain" --payload="{OAUTH_CONSUMER_KEY}"`
+        openstack secret store \
+                    --name="consumer-token" \
+                    --payload-content-type="text/plain" \
+                    --payload="{OAUTH_CONSUMER_KEY}"`
 
-`openstack secret store --name="consumer-secret" --payload-content-type="text/plain" --payload="{OAUTH_CONSUMER_SECRET}"`
+        openstack secret store \
+                    --name="consumer-secret" \
+                    --payload-content-type="text/plain" \
+                    --payload="{OAUTH_CONSUMER_SECRET}"
 
-`openstack secret store --name="access-token" --payload-content-type="text/plain" --payload="{OAUTH_TOKEN}"`
+        openstack secret store \
+                    --name="access-token" \
+                    --payload-content-type="text/plain" \
+                    --payload="{OAUTH_TOKEN}"
 
-`openstack secret store --name="access-secret" --payload-content-type="text/plain" --payload="{OAUTH_TOKEN_SECRET}"`
+        openstack secret store \
+                    --name="access-secret" \
+                    --payload-content-type="text/plain" \
+                    --payload="{OAUTH_TOKEN_SECRET}"`
