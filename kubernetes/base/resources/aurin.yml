@@ -31,5 +31,5 @@ spec:
             value: "domestic_violence_vic"
         command: ["python"]
         # <kubectl apply --help> doesn't show any options to pass args into the config file, so its hardcoded for now
-        args: ["aurinapi.py", "-s", "admin:$(COUCHDB_PASSWORD)", "$(COUCHDB_HOST)", "$(DATASET_NAME)", "-d", "$(DATASET_ID)", "-t", "$(API_TOKEN)", "-a"]
+        args: ["aurinapi.py", "-s", "admin:$(COUCHDB_PASSWORD)", "$(COUCHDB_HOST)", "$(DATASET_NAME)", "-d", "$(DATASET_ID)", "-t", "$(API_TOKEN)", "-ap"]
       restartPolicy: OnFailure
