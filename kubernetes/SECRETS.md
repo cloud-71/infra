@@ -61,3 +61,17 @@
                 --name="aurin-token" \
                 --payload-content-type="text/plain" \
                 --payload="{TOKEN}"
+
+## Twitter Access Tokens & Secrets
+
+1. We require 4 [Twitter tokens](https://developer.twitter.com/en/docs/basics/authentication/oauth-1-0a) which are stored as secrets; the `oauth_consumer_key`, `oauth_consumer_secret`, `oauth_token`, and the `oauth_token_secret`.
+
+2. Once the tokens have been generated, store them with the following commands:
+
+`openstack secret store --name="consumer-token" --payload-content-type="text/plain" --payload="{OAUTH_CONSUMER_KEY}"`
+
+`openstack secret store --name="consumer-secret" --payload-content-type="text/plain" --payload="{OAUTH_CONSUMER_SECRET}"`
+
+`openstack secret store --name="access-token" --payload-content-type="text/plain" --payload="{OAUTH_TOKEN}"`
+
+`openstack secret store --name="access-secret" --payload-content-type="text/plain" --payload="{OAUTH_TOKEN_SECRET}"`
