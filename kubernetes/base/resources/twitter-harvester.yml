@@ -29,3 +29,25 @@ spec:
                 key: adminPassword
           - name: COUCHDB_DB_NAME
             value: "twitter_data"
+          # Twitter related tokens. Store all of them as secrets for safety
+          - name: CONSUMER_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: consumer-token
+                key: token
+          - name: CONSUMER_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: consumer-secret
+                key: secret
+          - name: ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: access-token
+                key: token
+          - name: ACCESS_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: access-secret
+                key: secret
+
