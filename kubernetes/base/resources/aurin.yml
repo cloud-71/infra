@@ -3,12 +3,12 @@ kind: Job
 metadata:
   name: aurin-harvester
 spec:
+  ttlSecondsAfterFinished: 0
   template:
     metadata:
       labels:
         app: aurin-harvester
     spec:
-      ttlSecondsAfterFinished: 0
       imagePullSecrets:
       - name: "docker.pkg.github.com"
       containers:
