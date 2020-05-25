@@ -8,6 +8,7 @@ spec:
       labels:
         app: aurin-harvester
     spec:
+      ttlSecondsAfterFinished: 0
       imagePullSecrets:
       - name: "docker.pkg.github.com"
       containers:
