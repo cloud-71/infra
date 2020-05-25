@@ -118,7 +118,6 @@ Ensure you have sourced the relevant cloud credentials before proceeding.
 
         curl http://admin:dZi2nSHIyPdxfallYOzp@127.0.0.1:5984/_all_dbs
 
-
 [docker-login]: https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages#authenticating-to-github-packages
 [kustomize]: https://kustomize.io
 [gh-token]: https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line

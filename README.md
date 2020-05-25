@@ -24,8 +24,8 @@ Twitter harvester, the AURIN downloader and the web app.
 
 ## One-click deploy
 
-1. Run `./new_cluster ClusterName` if creating in the project group. Otherwise,
-`./new_cluster ClusterName personal` for personal group. (Make sure the sourced
+1. Run `./new_cluster.sh ClusterName` if creating in the project group. Otherwise,
+`./new_cluster.sh ClusterName personal` for personal group. (Make sure the sourced
 rcfile is correct!)
 
 2. There is no second step
