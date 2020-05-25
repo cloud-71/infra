@@ -22,6 +22,10 @@ spec:
         ports:
         - containerPort: 3000
         env:
+          - name: COUCHDB_DATABASE_AURIN
+            value: "domestic_violence_vic"
+          - name: COUCHDB_DATABASE_TWITTER
+            value: "twitter_data"
           - name: COUCHDB_HOST
             value: "couchdb-couchdb.default.svc.cluster.local:5984"
           - name: COUCHDB_PASSWORD
