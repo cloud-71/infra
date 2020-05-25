@@ -50,3 +50,14 @@
        region=${OS_REGION_NAME}
        EOF
        )"
+
+## AURIN API Access Token
+
+1. Apply for the API credentials through the [website](https://aurin.org.au/resources/aurin-apis/sign-up/)
+
+2. After receiving the token {TOKEN}, store it with the following command:
+
+        openstack secret store \
+                --name="aurin-token" \
+                --payload-content-type="text/plain" \
+                --payload="{TOKEN}"
