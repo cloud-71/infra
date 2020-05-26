@@ -2,7 +2,7 @@ k3s_version: v1.18.2-rc4+k3s1
 ansible_user: debian
 master_ip: "{{ groups['master'][0] }}"
 extra_k3s_node_args: "--docker"
-extra_k3s_args: "--docker --write-kubeconfig-mode 644 --disable traefik --kube-apiserver-arg=enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset --kube-apiserver-arg=runtime-config=settings.k8s.io/v1alpha1=true"
+extra_k3s_args: "--docker --write-kubeconfig-mode 644 --disable traefik --kube-apiserver-arg=enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset --kube-apiserver-arg=runtime-config=settings.k8s.io/v1alpha1=true --kube-apiserver-arg=feature-gates=TTLAfterFinished=true --kube-controller-manager-arg=feature-gates=TTLAfterFinished=true"
 proxy_env:
   HTTP_PROXY: "http://wwwproxy.unimelb.edu.au:8000/"
   HTTPS_PROXY: "http://wwwproxy.unimelb.edu.au:8000/"
