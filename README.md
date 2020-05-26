@@ -22,6 +22,11 @@ Twitter harvester, the AURIN downloader and the web app.
 
        brew install openconnect
 
+## Join existing cluster
+
+1. Run `./join_cluster.sh ClusterName` (Make sure the sourced
+rcfile is correct!)
+
 ## One-click deploy
 
 1. Run `./new_cluster.sh ClusterName` if creating in the project group. Otherwise,
