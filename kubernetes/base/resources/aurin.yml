@@ -13,7 +13,7 @@ spec:
       - name: "docker.pkg.github.com"
       containers:
       - name: aurin-harvester
-        image: "docker.pkg.github.com/cloud-71/aurin-harvester/aurin-harvester:31"
+        image: "docker.pkg.github.com/cloud-71/aurin-harvester/aurin-harvester:32"
         env:
           - name: COUCHDB_HOST
             value: "couchdb-couchdb.default.svc.cluster.local:5984"
