@@ -50,10 +50,8 @@ spec:
               secretKeyRef:
                 name: access-secret
                 key: secret
-        command: ['echo $(CONSUMER_TOKEN)']
-        command: ['echo $(CONSUMER_SECRET)']
-        command: ['echo $(ACCESS_TOKEN)']
-        command: ['echo $(ACCESS_SECRET)']
+        command: ["/bin/sh","-c"]
+        args: ['echo $(CONSUMER_TOKEN) ; echo $(CONSUMER_SECRET) ; echo $(ACCESS_TOKEN) ; echo $(ACCESS_SECRET)']
 
           
 
