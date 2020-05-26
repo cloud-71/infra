@@ -1,5 +1,7 @@
 # Guide: Storing secrets in Barbican
 
+These steps only need to be completed **once** per OpenStack project.
+
 ## GitHub Docker Registry
 
 1. Ensure you have a [GitHub personal access token][gh-token] with permissions
