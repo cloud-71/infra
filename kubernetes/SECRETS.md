@@ -71,7 +71,7 @@
         openstack secret store \
                     --name="consumer-token" \
                     --payload-content-type="text/plain" \
-                    --payload="{OAUTH_CONSUMER_KEY}"`
+                    --payload="{OAUTH_CONSUMER_KEY}"
 
         openstack secret store \
                     --name="consumer-secret" \
@@ -86,4 +86,4 @@
         openstack secret store \
                     --name="access-secret" \
                     --payload-content-type="text/plain" \
-                    --payload="{OAUTH_TOKEN_SECRET}"`
+                    --payload="{OAUTH_TOKEN_SECRET}"
