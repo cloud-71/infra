@@ -87,3 +87,5 @@
                     --name="access-secret" \
                     --payload-content-type="text/plain" \
                     --payload="{OAUTH_TOKEN_SECRET}"
+
+[gh-token]: https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
