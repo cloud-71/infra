@@ -18,7 +18,7 @@ spec:
       - name: "docker.pkg.github.com"
       containers:
       - name: twitter-harvester
-        image: "docker.pkg.github.com/cloud-71/twitter-harvester/twitter-harvester:27"
+        image: "docker.pkg.github.com/cloud-71/twitter-harvester/twitter-harvester:28"
         env:
           - name: COUCHDB_HOST
             value: "couchdb-couchdb.default.svc.cluster.local"
@@ -50,6 +50,8 @@ spec:
               secretKeyRef:
                 name: access-secret
                 key: secret
+          - name: DESIGNATION
+            value: "search"
 
           
 

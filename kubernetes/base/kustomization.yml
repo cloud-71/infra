@@ -4,7 +4,8 @@ resources:
 - resources/aurin.yml
 - resources/couchdb.yml
 - resources/haproxy-ingress.yml
-- resources/twitter-harvester.yml
+- resources/twitter-harvester-search.yml
+- resources/twitter-harvester-streaming.yml
 - resources/web-app.yml
 generators:
 - barbican-secret-generator.yml
