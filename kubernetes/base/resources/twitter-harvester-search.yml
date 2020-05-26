@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: twitter-harvester-deployment
+  name: twitter-harvester-search-deployment
   labels:
-    app: twitter-harvester
+    app: twitter-harvester-search
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: twitter-harvester
+      app: twitter-harvester-search
   template:
     metadata:
       labels:
-        app: twitter-harvester
+        app: twitter-harvester-search
     spec:
       imagePullSecrets:
       - name: "docker.pkg.github.com"
       containers:
-      - name: twitter-harvester
+      - name: twitter-harvester-search
         image: "docker.pkg.github.com/cloud-71/twitter-harvester/twitter-harvester:28"
         env:
           - name: COUCHDB_HOST
